@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta property="og:image" content="preview.jpg">
+		<style type="text/css" title="Default">
+			/* fullscreen */
+			html {
+				height:100%;
+			}
+			body {
+				height:100%;
+				margin: 0px;
+				overflow:hidden; /* disable scrollbars */
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* remove highlight on tab for iOS/Android */
+			}
+			/* fix for scroll bars on webkit & >=Mac OS X Lion */ 
+			::-webkit-scrollbar {
+				background-color: rgba(0,0,0,0.5);
+				width: 0.75em;
+			}
+			::-webkit-scrollbar-thumb {
+    			background-color:  rgba(255,255,255,0.5);
+			}
+		</style>	
+	</head>
+	<body>
+<!-- - - - - - - 8<- - - - - - cut here - - - - - 8<- - - - - - - -->
+		<script type="text/javascript" src="pano2vr_player.js">
+		</script>
+		<script type="text/javascript" src="skin.js">
+		</script>
+		<script src="webxr/three.min.js"></script>
+		<script src="webxr/webxr-polyfill.min.js"></script>
+		<div id="container" style="width:100%;height:100%;overflow:hidden;">
+		<br>Loading...<br><br>
+		</div>
+		<script type="text/javascript">
+	
+			// create the panorama player with the container
+			pano=new pano2vrPlayer("container");
+			// add the skin object
+			skin=new pano2vrSkin(pano);
+			// load the configuration
+			panorama='<?xml version="1.0" encoding="UTF-8"?>';
+			panorama+='<tour start="node1" appversion="6.1.11" apprev="18043">';
+			panorama+='  <panorama id="node1">';
+			panorama+='    <input overlap="1" levelbiashidpi="1.000" width="960" height="960" levelingpitch="0" leveltileurl="tiles/node1/cf_%c/l_%l/c_%x/tile_%y.jpg" leveltilesize="510" levelingroll="0" levelbias="0.400">';
+			panorama+='      <level predecode="0" width="960" height="960" preload="0"/>';
+			panorama+='      <level predecode="1" width="480" height="480" preload="1"/>';
+			panorama+='      <preview color="0x808080" strip="1"/>';
+			panorama+='    </input>';
+			panorama+='    <view pannorth="0" fovmode="0">';
+			panorama+='      <start fov="70" projection="4" tilt="0" pan="0"/>';
+			panorama+='      <flyin fov="170" projection="9" tilt="-90" pan="0"/>';
+			panorama+='      <min fovpixel="2" tilt="-90" pan="0"/>';
+			panorama+='      <max fov="120" fovstereographic="270" scaletofit="1" tilt="90" fovfisheye="360" pan="360"/>';
+			panorama+='    </view>';
+			panorama+='    <userdata description="" longitude="" copyright="" info="" tags="Panorama_opt-1" nodeid="node1" title="" customnodeid="" author="" datetime="26-09-2022 19:54" comment="" latitude="" heading="0" source=""/>';
+			panorama+='    <hotspots wordwrap="1" width="180" height="20">';
+			panorama+='      <label textalpha="1" wordwrap="1" textcolor="0x000000" width="180" borderradius="1" borderalpha="1" height="20" backgroundalpha="1" bordercolor="0x000000" border="1" background="1" backgroundcolor="0xffffff" enabled="1"/>';
+			panorama+='      <polystyle mode="0" borderalpha="1" backgroundalpha="0.25098" handcursor="1" bordercolor="0x0000ff" backgroundcolor="0x0000ff"/>';
+			panorama+='      <hotspot description="" id="Point01" title="" skinid="ht_node" tilt="-1.87" pan="-351.03" url="{node3}" target=""/>';
+			panorama+='      <hotspot description="" id="Point02" title="" skinid="ht_node" tilt="27.09" pan="-93.11" url="{node2}" target=""/>';
+			panorama+='    </hotspots>';
+			panorama+='    <media>';
+			panorama+='      <sound pansize="10.000" field="90.000" id="_background" loop="1" startmutedmobile="0" mode="0" nodechangekeep="0" tiltsize="10.000" ambientlevel="0.000" level="1.000" tilt="-1.000" pan="-1.000">';
+			panorama+='        <source url="media/forest-lullaby-110624.mp3"/>';
+			panorama+='      </sound>';
+			panorama+='      <lensflare blinding="50.000" color="0xffffff" id="Lensflare01" alpha="80.000" tilt="18.600" pan="-199.860" type="9"/>';
+			panorama+='    </media>';
+			panorama+='    <transition zoomout="0" softedge="0" zoomoutpause="1" blendtime="1" zoomspeed="2" zoomafteroutfov="20" blendcolor="0x000000" enabled="1" type="crossdissolve" zoomfov="20" zoomafterinfov="90" zoomin="0"/>';
+			panorama+='    <autorotate delay="5.00" noderandom="1" nodedelay="0.00" speed="0.400" useanimation="0" nodefilter="" enabled="1" returntohorizon="0.000" startloaded="0"/>';
+			panorama+='    <flyintransition speed="2.00" enabled="1"/>';
+			panorama+='    <animation useinautorotation="0" animsequence="Animation01" syncanimationwithvideo="0"/>';
+			panorama+='    <control lockedkeyboard="0" simulatemass="1" rubberband="0" lockedkeyboardzoom="0" lockedwheel="0" dblclickfullscreen="0" invertwheel="0" speedwheel="1" sensitivity="8" contextprojections="1" invertcontrol="1" hideabout="0" lockedmouse="0" contextfullscreen="1"/>';
+			panorama+='  </panorama>';
+			panorama+='  <panorama id="node2">';
+			panorama+='    <input overlap="1" levelbiashidpi="1.000" width="960" height="960" levelingpitch="0" leveltileurl="tiles/node2/cf_%c/l_%l/c_%x/tile_%y.jpg" leveltilesize="510" levelingroll="0" levelbias="0.400">';
+			panorama+='      <level predecode="0" width="960" height="960" preload="0"/>';
+			panorama+='      <level predecode="1" width="480" height="480" preload="1"/>';
+			panorama+='      <preview color="0x808080" strip="1"/>';
+			panorama+='    </input>';
+			panorama+='    <view pannorth="0" fovmode="0">';
+			panorama+='      <start fov="70" projection="4" tilt="0" pan="0"/>';
+			panorama+='      <flyin fov="170" projection="9" tilt="-90" pan="0"/>';
+			panorama+='      <min fovpixel="2" tilt="-90" pan="0"/>';
+			panorama+='      <max fov="120" fovstereographic="270" scaletofit="1" tilt="90" fovfisheye="360" pan="360"/>';
+			panorama+='    </view>';
+			panorama+='    <userdata description="Multi Purpose Sports Hall" longitude="" copyright="Surinder Sawhney Associates" info="Multi Purpose Sports Hall" tags="Panorama_opt-1" nodeid="node2" title="St Kabir 360" customnodeid="" author="Surinder Sawhney" datetime="26-09-2022 21:03" comment="" latitude="" heading="0" source=""/>';
+			panorama+='    <hotspots wordwrap="1" width="180" height="20">';
+			panorama+='      <label textalpha="1" wordwrap="1" textcolor="0x000000" width="180" borderradius="1" borderalpha="1" height="20" backgroundalpha="1" bordercolor="0x000000" border="1" background="1" backgroundcolor="0xffffff" enabled="1"/>';
+			panorama+='      <polystyle mode="0" borderalpha="1" backgroundalpha="0.25098" handcursor="1" bordercolor="0x0000ff" backgroundcolor="0x0000ff"/>';
+			panorama+='      <hotspot description="" id="Point01" title="" skinid="ht_node" tilt="-9.61" pan="-54" url="{node3}" target=""/>';
+			panorama+='      <hotspot description="" id="Point02" title="" skinid="ht_node" tilt="-20.54" pan="-3.68" url="{node1}" target="_parent"/>';
+			panorama+='    </hotspots>';
+			panorama+='    <media>';
+			panorama+='      <sound pansize="10.000" field="90.000" id="_background" loop="1" startmutedmobile="0" mode="0" nodechangekeep="0" tiltsize="10.000" ambientlevel="0.000" level="1.000" tilt="-1.000" pan="-1.000">';
+			panorama+='        <source url="media/forest-lullaby-110624.mp3"/>';
+			panorama+='      </sound>';
+			panorama+='    </media>';
+			panorama+='    <transition zoomout="0" softedge="0" zoomoutpause="1" blendtime="1" zoomspeed="2" zoomafteroutfov="20" blendcolor="0x000000" enabled="1" type="crossdissolve" zoomfov="20" zoomafterinfov="90" zoomin="0"/>';
+			panorama+='    <autorotate delay="5.00" noderandom="1" nodedelay="0.00" speed="0.400" useanimation="0" nodefilter="" enabled="1" returntohorizon="0.000" startloaded="0"/>';
+			panorama+='    <flyintransition speed="2.00" enabled="1"/>';
+			panorama+='    <animation useinautorotation="0" animsequence="Animation01" syncanimationwithvideo="0"/>';
+			panorama+='    <control lockedkeyboard="0" simulatemass="1" rubberband="0" lockedkeyboardzoom="0" lockedwheel="0" dblclickfullscreen="0" invertwheel="0" speedwheel="1" sensitivity="8" contextprojections="1" invertcontrol="1" hideabout="0" lockedmouse="0" contextfullscreen="1"/>';
+			panorama+='  </panorama>';
+			panorama+='  <panorama id="node3">';
+			panorama+='    <input overlap="1" levelbiashidpi="1.000" width="960" height="960" levelingpitch="0" leveltileurl="tiles/node3/cf_%c/l_%l/c_%x/tile_%y.jpg" leveltilesize="510" levelingroll="0" levelbias="0.400">';
+			panorama+='      <level predecode="0" width="960" height="960" preload="0"/>';
+			panorama+='      <level predecode="1" width="480" height="480" preload="1"/>';
+			panorama+='      <preview color="0x808080" strip="1"/>';
+			panorama+='    </input>';
+			panorama+='    <view pannorth="0" fovmode="0">';
+			panorama+='      <start fov="70" projection="4" tilt="0" pan="0"/>';
+			panorama+='      <flyin fov="170" projection="9" tilt="-90" pan="0"/>';
+			panorama+='      <min fovpixel="2" tilt="-90" pan="0"/>';
+			panorama+='      <max fov="120" fovstereographic="270" scaletofit="1" tilt="90" fovfisheye="360" pan="360"/>';
+			panorama+='    </view>';
+			panorama+='    <userdata description="" longitude="" copyright="" info="" tags="Panorama_opt-1" nodeid="node3" title="" customnodeid="" author="" datetime="26-09-2022 22:04" comment="" latitude="" heading="0" source=""/>';
+			panorama+='    <hotspots wordwrap="1" width="180" height="20">';
+			panorama+='      <label textalpha="1" wordwrap="1" textcolor="0x000000" width="180" borderradius="1" borderalpha="1" height="20" backgroundalpha="1" bordercolor="0x000000" border="1" background="1" backgroundcolor="0xffffff" enabled="1"/>';
+			panorama+='      <polystyle mode="0" borderalpha="1" backgroundalpha="0.25098" handcursor="1" bordercolor="0x0000ff" backgroundcolor="0x0000ff"/>';
+			panorama+='      <hotspot description="" id="Point01" title="" skinid="ht_node" tilt="-2.37" pan="-356.68" url="{node1}" target=""/>';
+			panorama+='      <hotspot description="" id="Point02" title="" skinid="ht_node" tilt="9.51" pan="-326" url="{node2}" target=""/>';
+			panorama+='    </hotspots>';
+			panorama+='    <media>';
+			panorama+='      <sound pansize="10.000" field="90.000" id="_background" loop="1" startmutedmobile="0" mode="0" nodechangekeep="0" tiltsize="10.000" ambientlevel="0.000" level="1.000" tilt="-1.000" pan="-1.000">';
+			panorama+='        <source url="media/forest-lullaby-110624.mp3"/>';
+			panorama+='      </sound>';
+			panorama+='      <lensflare blinding="50.000" color="0xffffff" id="Lensflare01" alpha="80.000" tilt="21.980" pan="-119.250" type="9"/>';
+			panorama+='    </media>';
+			panorama+='    <transition zoomout="0" softedge="0" zoomoutpause="1" blendtime="1" zoomspeed="2" zoomafteroutfov="20" blendcolor="0x000000" enabled="1" type="crossdissolve" zoomfov="20" zoomafterinfov="90" zoomin="0"/>';
+			panorama+='    <autorotate delay="5.00" noderandom="1" nodedelay="0.00" speed="0.400" useanimation="0" nodefilter="" enabled="1" returntohorizon="0.000" startloaded="0"/>';
+			panorama+='    <flyintransition speed="2.00" enabled="1"/>';
+			panorama+='    <animation useinautorotation="0" animsequence="Animation01" syncanimationwithvideo="0"/>';
+			panorama+='    <control lockedkeyboard="0" simulatemass="1" rubberband="0" lockedkeyboardzoom="0" lockedwheel="0" dblclickfullscreen="0" invertwheel="0" speedwheel="1" sensitivity="8" contextprojections="1" invertcontrol="1" hideabout="0" lockedmouse="0" contextfullscreen="1"/>';
+			panorama+='  </panorama>';
+			panorama+='  <masternode>';
+			panorama+='    <userdata description="" longitude="" copyright="" info="" tags="" nodeid="master" title="" customnodeid="" author="" datetime="" comment="" latitude="" heading="0" source=""/>';
+			panorama+='  </masternode>';
+			panorama+='</tour>';
+			panorama+='';
+			pano.readConfigString(panorama);
+		</script>
+		<noscript>
+			<p><b>Please enable Javascript!</b></p>
+		</noscript>
+<!-- - - - - - - 8<- - - - - - cut here - - - - - 8<- - - - - - - --> 
+		<!-- Hack needed to hide the url bar on iOS 9, iPhone 5s --> 
+		<div style="width:1px;height:1px;"></div>
+	</body>
+</html>
